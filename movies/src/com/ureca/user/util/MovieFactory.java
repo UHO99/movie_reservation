@@ -1,15 +1,15 @@
 package com.ureca.user.util;
 
-import com.ureca.user.model.dao.UserDao;
-import com.ureca.user.model.dao.UserDaoImp;
+import com.ureca.movie.model.dao.MovieDao;
+import com.ureca.movie.model.dao.MovieDaoImp;
 
 public class MovieFactory
 {
 	//	private static final EmployeeDao dao = new EmployeeDaoMemory();
 	//	private static final EmployeeDao dao = new EmployeeDaoFile();
-	private static final UserDao dao = new UserDaoImp();
+	private static final MovieDao dao = new MovieDaoImp();
 
-	public static UserDao getUser()
+	public static MovieDao getMovie()
 	{
 		return dao;
 	}

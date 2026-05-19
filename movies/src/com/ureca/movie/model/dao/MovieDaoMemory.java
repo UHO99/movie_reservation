@@ -66,7 +66,7 @@ public class MovieDaoMemory implements MovieDao
 	}
 
 	@Override
-	public User search(int id)
+	public Movie search(int id)
 	{
 		int index = findIndex(id);
 		if (index > -1)

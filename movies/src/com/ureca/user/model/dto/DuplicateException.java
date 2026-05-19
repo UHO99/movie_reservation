@@ -6,8 +6,8 @@ public class DuplicateException extends RuntimeException
 	{
 	}
 
-	public DuplicateException(String empno)
+	public DuplicateException(int id)
 	{
-		super(String.format("%s번은 이미 등록된 번호입니다.", empno));
+		super(String.format("%d번은 이미 등록된 번호입니다.", id));
 	}
 }

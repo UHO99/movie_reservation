@@ -6,8 +6,8 @@ public class CanNotFindException extends RuntimeException
 	{
 	}
 
-	public CanNotFindException(String empno)
+	public CanNotFindException(int id)
 	{
-		super(String.format("%s번에 해당하는 정보를 찾을 수 없습니다.", empno));
+		super(String.format("%d번에 해당하는 정보를 찾을 수 없습니다.", id));
 	}
 }

@@ -1,33 +1,35 @@
 package com.ureca.user.model.service;
 
 import java.sql.SQLException;
+
 import java.util.List;
 
-import com.ureca.user.model.dao.EmployeeDao;
+import com.ureca.user.model.dao.UserDao;
 import com.ureca.user.model.dto.CanNotFindException;
 import com.ureca.user.model.dto.DuplicateException;
 import com.ureca.user.model.dto.MovieException;
 import com.ureca.user.model.dto.User;
 import com.ureca.user.util.MovieFactory;
+import com.ureca.user.util.UserFactory;
 
 public class UserServiceImp implements UserService
 {
-	private MovieDao dao = MovieFactory.getEmployee();
+	private UserDao dao = UserFactory.getUser();
 
 	@Override
-	public void add(User emp)
+	public void add(User usr)
 	{
 		try
 		{
-			String empno = emp.getEmpno();
-			User find = dao.search(empno);
+			int id = usr.getId();
+			User find = dao.search(id);
 			if (find != null)
 			{
-				throw new DuplicateException(empno);
+				throw new DuplicateException(id);
 			}
 			else
 			{
-				dao.add(emp);
+				dao.add(usr);
 			}
 		}
 		catch (SQLException e)
@@ -37,14 +39,14 @@ public class UserServiceImp implements UserService
 		}
 	}
 
-	public User search(String empno)
+	public User search(int id)
 	{
 		try
 		{
-			User emp = dao.search(empno);
+			User usr = dao.search(id);
 			if (emp == null)
 			{
-				throw new CanNotFindException(empno);
+				throw new CanNotFindException(id);
 			}
 
 			return emp;
@@ -56,12 +58,12 @@ public class UserServiceImp implements UserService
 		}
 	}
 
-	public void update(User emp)
+	public void update(User usr)
 	{
 		try
 		{
-			search(emp.getEmpno());
-			dao.update(emp);
+			search(usr.getId());
+			dao.update(usr);
 		}
 		catch (SQLException e)
 		{
@@ -70,12 +72,12 @@ public class UserServiceImp implements UserService
 		}
 	}
 
-	public void remove(String empno)
+	public void remove(int id)
 	{
 		try
 		{
-			search(empno);
-			dao.remove(empno);
+			search(id);
+			dao.remove(id);
 		}
 		catch (SQLException e)
 		{

@@ -12,7 +12,6 @@ import com.ureca.user.util.DBUtil;
 
 public class UserDaoImp implements UserDao
 {
-	//////////////////////// TODO 01. DBUtil 객체 생성하기  
 	private DBUtil dbutil = DBUtil.getInstance();
 
 	@Override
@@ -138,7 +137,6 @@ public class UserDaoImp implements UserDao
 
 		try
 		{
-			//////////////////////// TODO 06. 사원 정보 전체 조회하기
 			con = dbutil.getConnection();
 			String sql = "SELECT id, name, grade, reservation_id FROM user";
 			stmt = con.prepareStatement(sql);
