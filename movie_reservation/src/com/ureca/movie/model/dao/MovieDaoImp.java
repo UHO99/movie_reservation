@@ -74,6 +74,7 @@ public class MovieDaoImp implements MovieDao
 	{
 		Connection con = null;
 		PreparedStatement stmt = null;
+
 		try
 		{
 			con = dbutil.getConnection();

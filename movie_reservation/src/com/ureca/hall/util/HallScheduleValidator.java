@@ -39,6 +39,7 @@ public final class HallScheduleValidator
 			{
 				continue;
 			}
+
 			int otherStart = toMinutes(other.getStartTime());
 			List<int[]> otherSegments = toSegments(otherStart, otherStart + other.getMovieTime());
 			if (segmentsOverlap(candidateSegments, otherSegments))

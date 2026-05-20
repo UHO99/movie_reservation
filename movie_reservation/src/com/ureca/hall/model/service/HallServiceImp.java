@@ -24,7 +24,9 @@ public class HallServiceImp implements HallService
 			{
 				throw new DuplicateException(hall.getHallId());
 			}
+
 			HallScheduleValidator.assertNoOverlap(hall, dao.searchByHallId(hall.getHallId()));
+
 			dao.add(hall);
 		}
 		catch (SQLException e)

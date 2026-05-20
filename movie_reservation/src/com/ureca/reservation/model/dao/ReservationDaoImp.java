@@ -288,6 +288,7 @@ public class ReservationDaoImp implements ReservationDao
 		{
 			con = dbutil.getConnection();
 			rs = con.prepareStatement("SELECT COALESCE(MAX(reservation_id), 0) + 1 FROM reservation").executeQuery();
+
 			if (rs.next())
 			{
 				return rs.getInt(1);

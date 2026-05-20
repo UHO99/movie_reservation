@@ -23,6 +23,7 @@ public class MovieServiceImp implements MovieService
 			{
 				throw new DuplicateException(mov.getMovie_id());
 			}
+
 			dao.add(mov);
 		}
 		catch (SQLException e)

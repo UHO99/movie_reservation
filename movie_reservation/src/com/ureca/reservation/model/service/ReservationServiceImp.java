@@ -22,6 +22,7 @@ public class ReservationServiceImp implements ReservationService
 		{
 			throw new DuplicateException(res.getSeat_id());
 		}
+
 		dao.add(res);
 	}
 
@@ -29,6 +30,7 @@ public class ReservationServiceImp implements ReservationService
 	public void update(Reservation res)
 	{
 		Reservation existing = dao.search(res.getReservation_id());
+
 		if (existing == null)
 		{
 			throw new CanNotFindException(res.getReservation_id());
@@ -37,6 +39,7 @@ public class ReservationServiceImp implements ReservationService
 		{
 			throw new DuplicateException(res.getSeat_id());
 		}
+
 		dao.update(res);
 	}
 
