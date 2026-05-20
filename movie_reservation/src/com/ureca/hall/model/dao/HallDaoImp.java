@@ -90,13 +90,30 @@ public class HallDaoImp implements HallDao
 		try
 		{
 			con = dbutil.getConnection();
-			stmt = con.prepareStatement("DELETE FROM hall WHERE hall_id=? AND seat_id=?");
+			con.setAutoCommit(false); // 트랜잭션 시작
+
+			// 1. movie 테이블에서 이 hall을 참조하는 hall_id를 NULL로
+			stmt = con.prepareStatement("UPDATE movie SET hall_id = NULL WHERE hall_id = ?");
+			stmt.setInt(1, hallId);
+			stmt.executeUpdate();
+			stmt.close();
+
+			// 2. hall 행 삭제
+			stmt = con.prepareStatement("DELETE FROM hall WHERE hall_id = ? AND seat_id = ?");
 			stmt.setInt(1, hallId);
 			stmt.setInt(2, seatId);
 			stmt.executeUpdate();
+
+			con.commit();
+		}
+		catch (SQLException e)
+		{
+			if (con != null) con.rollback();
+			throw e;
 		}
 		finally
 		{
+			if (con != null) con.setAutoCommit(true);
 			dbutil.close(stmt, con);
 		}
 	}

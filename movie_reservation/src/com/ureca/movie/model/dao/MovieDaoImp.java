@@ -77,18 +77,31 @@ public class MovieDaoImp implements MovieDao
 		try
 		{
 			con = dbutil.getConnection();
-			String sql = "DELETE FROM movie WHERE movie_id=?";
-			stmt = con.prepareStatement(sql);
+			con.setAutoCommit(false); // 트랜잭션 시작
 
+			// 1. hall 테이블에서 이 movie를 참조하는 movie_id를 NULL로
+			stmt = con.prepareStatement("UPDATE hall SET movie_id = NULL WHERE movie_id = ?");
 			stmt.setInt(1, id);
-
 			stmt.executeUpdate();
+			stmt.close();
+
+			// 2. movie 행 삭제
+			stmt = con.prepareStatement("DELETE FROM movie WHERE movie_id = ?");
+			stmt.setInt(1, id);
+			stmt.executeUpdate();
+
+			con.commit();
+		}
+		catch (SQLException e)
+		{
+			if (con != null) con.rollback();
+			throw e;
 		}
 		finally
 		{
+			if (con != null) con.setAutoCommit(true);
 			dbutil.close(stmt, con);
 		}
-
 	}
 
 	@Override
